@@ -13,6 +13,7 @@ export default class ToDoList extends React.Component {
     this.toggleToDo = this.toggleToDo.bind(this)
     this.filterToDos = this.filterToDos.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.validateNewTodo = this.validateNewTodo.bind(this)
   }
 
   onChange(event) {
@@ -21,7 +22,18 @@ export default class ToDoList extends React.Component {
     })
   }
   
+  validateNewTodo() {
+    //check for empty string
+    if(this.state.newToDo.trim() == "") {
+      return false
+    }
+    return true
+  }
+
   addNewToDo() {
+    if(!this.validateNewTodo()) {
+      return
+    }
     let newToDo = {
       text: this.state.newToDo,
       status: "Active",
