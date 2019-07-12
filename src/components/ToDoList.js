@@ -117,7 +117,7 @@ const ItemRow = ({todo, toggleToDo}) => {
     isCompletedClassname="line-through"
   }
   return (
-    <li className={'px-3 border-b border-gray-200 ' + isCompletedClassname} onClick={(event) => toggleToDo(event, todo.id)} >
+    <li className={'px-3 border-b border-gray-500 ' + isCompletedClassname} onClick={(event) => toggleToDo(event, todo.id)} >
         <label className="to-do-text">{todo.text}</label>
     </li>
   )

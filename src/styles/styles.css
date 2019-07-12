@@ -1,11 +1,10 @@
 @tailwind base;
-.base {
-  html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 @tailwind components;
@@ -31,7 +30,8 @@
 
 .main  {
   margin: 0 auto;
-  @apply max-w-2xl mt-4; 
+  height: 100rem;
+  @apply max-w-2xl mt-4 bg-gray-100;
 }
 
 /* text-input */
