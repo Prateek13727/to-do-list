@@ -41,7 +41,7 @@
 
 /* to do text */
 .to-do-text {
-  @apply py-6 leading-tight text-3xl;
+  @apply py-6 leading-tight text-2xl;
 }
 
 /* filter */
@@ -51,5 +51,10 @@
 
 .selectedFilter {
   border: solid 1px red;
+}
 
+/* list */
+.list-container {
+  @apply shadow border border-gray-500 rounded w-full py-2 px-3 ml-2 ;
+  min-height: 10rem;
 }

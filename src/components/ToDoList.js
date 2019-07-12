@@ -9,12 +9,10 @@ export default class ToDoList extends React.Component {
       filteredTodos: [],
       filter: 'All'
     }
-
     this.addNewToDo = this.addNewToDo.bind(this)
     this.toggleToDo = this.toggleToDo.bind(this)
     this.filterToDos = this.filterToDos.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.filterToDos.bind(this, "All")
   }
 
   onChange(event) {
@@ -91,7 +89,7 @@ export default class ToDoList extends React.Component {
         <div className="mr-8">
           <input
             className="text-input" 
-            placeholder="What needs to be done" 
+            placeholder="Enter task name" 
             type="text" 
             value={this.state.newToDo} 
             onChange={this.onChange}
@@ -104,9 +102,9 @@ export default class ToDoList extends React.Component {
         <div className="flex-col">
           {this.renderButton(this.addNewToDo, "ADD")}
           <label>FILTERS</label>
-          {this.renderFilter(this.filterToDos.bind(this, "All"), "ALL", this.state.filter)}
-          {this.renderFilter(this.filterToDos.bind(this, "Completed"), "COMPLETED", this.state.filter)}
-          {this.renderFilter(this.filterToDos.bind(this, "Active"), "ACTIVE", this.state.filter)}
+          {this.renderFilter(this.filterToDos.bind(this, "All"), "All", this.state.filter)}
+          {this.renderFilter(this.filterToDos.bind(this, "Completed"), "Completed", this.state.filter)}
+          {this.renderFilter(this.filterToDos.bind(this, "Active"), "Active", this.state.filter)}
         </div>
       </div>
     )
@@ -119,7 +117,7 @@ const ItemRow = ({todo, toggleToDo}) => {
     isCompletedClassname="line-through"
   }
   return (
-    <li className={'px-3 ' + isCompletedClassname} onClick={(event) => toggleToDo(event, todo.id)} >
+    <li className={'px-3 border-b border-gray-200 ' + isCompletedClassname} onClick={(event) => toggleToDo(event, todo.id)} >
         <label className="to-do-text">{todo.text}</label>
     </li>
   )
@@ -127,10 +125,12 @@ const ItemRow = ({todo, toggleToDo}) => {
 
 const ListView = ({todos, toggleToDo}) => {
   return (
-    <ul>
-      {
-        todos.map(todo => <ItemRow key={todo.id} todo={todo} toggleToDo={toggleToDo} />)
-      }
-    </ul>
+    <div className="list-container">
+      <ul>
+        {
+          todos.map(todo => <ItemRow key={todo.id} todo={todo} toggleToDo={toggleToDo} />)
+        }
+      </ul>
+    </div> 
   )
 }
