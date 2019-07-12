@@ -14,6 +14,7 @@ export default class ToDoList extends React.Component {
     this.toggleToDo = this.toggleToDo.bind(this)
     this.filterToDos = this.filterToDos.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.filterToDos.bind(this, "All")
   }
 
   onChange(event) {
@@ -31,7 +32,9 @@ export default class ToDoList extends React.Component {
     this.setState({
       newToDo: "",
       todos: [...this.state.todos, newToDo]
-    });
+    },(
+      this.filterToDos.bind(this, "All")
+    ));
   }
 
   toggleToDo(event, id) {
@@ -95,7 +98,7 @@ export default class ToDoList extends React.Component {
           />
           <ListView 
             toggleToDo={this.toggleToDo} 
-            todos={this.state.filteredTodos.length ? this.state.filteredTodos : this.state.todos}
+            todos={this.state.filteredTodos}
           />
         </div>
         <div className="flex-col">
