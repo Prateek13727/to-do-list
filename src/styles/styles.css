@@ -1,0 +1,55 @@
+@tailwind base;
+.base {
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+}
+
+@tailwind components;
+
+/* button */
+.btn {
+  @apply font-bold py-2 px-4 rounded outline-none;
+}
+.btn:focus {
+  outline: none
+}
+.btn-blue {
+ @apply  bg-blue-500 text-white;
+}
+.btn-blue:hover {
+  @apply bg-blue-700;
+}
+.btn-add {
+  @apply font-hairline py-1 px-2 rounded outline-none bg-blue-500 text-white;
+}
+
+@tailwind utilities;
+
+.main  {
+  margin: 0 auto;
+  @apply max-w-2xl mt-4; 
+}
+
+/* text-input */
+.text-input {
+  @apply shadow border border-gray-500 rounded w-full m-2 py-2 px-3 text-gray-700 leading-tight;
+}
+
+/* to do text */
+.to-do-text {
+  @apply py-6 leading-tight text-3xl;
+}
+
+/* filter */
+.filter {
+  @apply capitalize font-hairline;
+}
+
+.selectedFilter {
+  border: solid 1px red;
+
+}

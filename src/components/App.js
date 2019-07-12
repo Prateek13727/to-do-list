@@ -1,27 +1,13 @@
-import React from 'react'
+import React from 'react';
+import ToDoList from './ToDoList';
+import '../styles/styles.css';
 
 const App = ({name}) => {
   return (
-    <header className="header">
-        <UpperCaseUsername>Welcome to React</UpperCaseUsername>
-    </header>
-  )
-}
-
-const hoc = (WrappedComponent) => (props) => {
-  return (
-    <div>
-      <WrappedComponent {...props}>
-        {props.children.toUpperCase()}
-      </WrappedComponent>
+    <div className="base">
+      <ToDoList />
     </div>
   )
 }
-
-const Username = (props) => (
-  <div>{props.children}</div>
-)
-
-const UpperCaseUsername = hoc(Username)
 
 export default App;
