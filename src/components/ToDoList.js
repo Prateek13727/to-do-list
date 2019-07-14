@@ -47,7 +47,8 @@ export default class ToDoList extends React.Component {
     ));
   }
 
-  toggleToDo(event, id) {
+  toggleToDo(id) {
+    console.log(id)
     let newTodos = this.state.todos.map((todo) => {
       if(todo.id === id) {
         if(todo.status == "Active") {
@@ -123,14 +124,15 @@ export default class ToDoList extends React.Component {
   }
 }
 
-const ItemRow = ({todo, toggleToDo}) => {
+const ItemRow = ({index, todo, toggleToDo}) => {
+  console.log(todo);
   let isCompletedClassname = "";
   if(todo.status == "Completed") {
     isCompletedClassname="line-through"
   }
   return (
-    <li className={'px-3 border-b border-gray-500 ' + isCompletedClassname} onClick={(event) => toggleToDo(event, todo.id)} >
-        <label className="to-do-text">{todo.text}</label>
+    <li className={'px-3 border-b border-gray-500 mb-4 ' + isCompletedClassname} onClick={() => toggleToDo(index+1)}>
+      <label className="to-do-text">{todo.text}</label>
     </li>
   )
 }
@@ -140,7 +142,9 @@ const ListView = ({todos, toggleToDo}) => {
     <div className="list-container">
       <ul>
         {
-          todos.map(todo => <ItemRow key={todo.id} todo={todo} toggleToDo={toggleToDo} />)
+          todos.map((todo, index) => {
+            return <ItemRow key={todo.id} index={index} todo={todo} toggleToDo={toggleToDo} />
+          })
         }
       </ul>
     </div> 
