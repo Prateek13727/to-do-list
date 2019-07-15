@@ -5,15 +5,10 @@ export default class ToDoList extends React.Component {
     super(props);
     this.state = {
       newToDo: "",
-      todos: [],
-      filteredTodos: [],
-      filter: 'All'
+      todos: []
     }
     this.addNewToDo = this.addNewToDo.bind(this)
-    this.toggleToDo = this.toggleToDo.bind(this)
-    this.filterToDos = this.filterToDos.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.validateNewTodo = this.validateNewTodo.bind(this)
   }
 
   onChange(event) {
@@ -21,19 +16,8 @@ export default class ToDoList extends React.Component {
       newToDo: event.target.value
     })
   }
-  
-  validateNewTodo() {
-    //check for empty string
-    if(this.state.newToDo.trim() == "") {
-      return false
-    }
-    return true
-  }
 
   addNewToDo() {
-    if(!this.validateNewTodo()) {
-      return
-    }
     let newToDo = {
       text: this.state.newToDo,
       status: "Active",
@@ -42,57 +26,12 @@ export default class ToDoList extends React.Component {
     this.setState({
       newToDo: "",
       todos: [...this.state.todos, newToDo]
-    },(
-      this.filterToDos.bind(this, "All")
-    ));
-  }
-
-  toggleToDo(id) {
-    console.log(id)
-    let newTodos = this.state.todos.map((todo) => {
-      if(todo.id === id) {
-        if(todo.status == "Active") {
-          todo.status = "Completed"
-        } else {
-          todo.status = "Active"
-        }
-        return todo
-      } else {
-        return todo
-      }
-    })
-    this.setState({
-      todos: newTodos
-    })
-  }
-
-  filterToDos(filter) {
-    let filteredTodos = this.state.todos.filter((todo) => {
-      return todo.status === filter || filter === "All"
-    })
-    this.setState({
-      filteredTodos,
-      filter
-    })
+    });
   }
 
   renderButton(cb, text, className="") {
     return <div className="my-2" >
       <button className={"btn btn-blue " + className} onClick={cb}>{text}</button>
-    </div>
-  }
-
-  renderFilter(cb, text, filter) {
-    let isFilterSelected = false
-    if ((text.charAt(0).toUpperCase() + text.toLowerCase().slice(1)) === filter) {
-      isFilterSelected = true
-    }
-    return <div className="my-2">
-      <button 
-        className={isFilterSelected ? "btn filter selectedFilter" : "btn filter"}
-        onClick={cb}>
-        {text}
-      </button>
     </div>
   }
 
@@ -108,42 +47,32 @@ export default class ToDoList extends React.Component {
             onChange={this.onChange}
           />
           <ListView 
-            toggleToDo={this.toggleToDo} 
-            todos={this.state.filteredTodos}
+            todos={this.state.todos}
           />
         </div>
         <div className="flex-col">
           {this.renderButton(this.addNewToDo, "ADD")}
-          <label>FILTERS</label>
-          {this.renderFilter(this.filterToDos.bind(this, "All"), "All", this.state.filter)}
-          {this.renderFilter(this.filterToDos.bind(this, "Completed"), "Completed", this.state.filter)}
-          {this.renderFilter(this.filterToDos.bind(this, "Active"), "Active", this.state.filter)}
         </div>
       </div>
     )
   }
 }
 
-const ItemRow = ({index, todo, toggleToDo}) => {
-  console.log(todo);
-  let isCompletedClassname = "";
-  if(todo.status == "Completed") {
-    isCompletedClassname="line-through"
-  }
+const ItemRow = ({index, todo}) => {
   return (
-    <li className={'px-3 border-b border-gray-500 mb-4 ' + isCompletedClassname} onClick={() => toggleToDo(index+1)}>
+    <li className={'px-3 border-b border-gray-500 mb-4'}>
       <label className="to-do-text">{todo.text}</label>
     </li>
   )
 }
 
-const ListView = ({todos, toggleToDo}) => {
+const ListView = ({todos}) => {
   return (
     <div className="list-container">
       <ul>
         {
           todos.map((todo, index) => {
-            return <ItemRow key={todo.id} index={index} todo={todo} toggleToDo={toggleToDo} />
+            return <ItemRow key={todo.id} index={index} todo={todo} />
           })
         }
       </ul>
